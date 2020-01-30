@@ -17,8 +17,8 @@ imds.ReadFcn = @(x)double(imresize(imread(x),[64 64]))/divideby;
 %Data augmentation
 imageSize = [64 64];
 imageAugmenter = imageDataAugmenter( ...
-    'RandXShear',[-8,8], ...
-    'RandYShear',[-8,8], ...
+    'RandXShear',[-6,6], ...
+    'RandYShear',[-6,6], ...
     'RandRotation',[-10,10], ...
     'RandXReflection', true, ...
     'RandXTranslation',[-6 6], ...
@@ -60,13 +60,11 @@ layers = [
     batchNormalizationLayer('Name', 'batch_3')
     reluLayer('Name','relu_3')
     
-    convolution2dLayer([9 9],32,'Padding','same','Name','conv_4','Stride',2)
+    convolution2dLayer([9 9],64,'Padding','same','Name','conv_4','Stride',2)
     batchNormalizationLayer('Name', 'batch_4')
     dropoutLayer( 0.25, 'Name','dropout_2')
     reluLayer('Name','relu_4')
-    
-    fullyConnectedLayer(256,'Name','fc_1')
-    reluLayer('Name','relu_5')
+   
     
     fullyConnectedLayer(15,'Name','fc_2')
     softmaxLayer('Name','softmax')
